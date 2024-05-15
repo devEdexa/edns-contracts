@@ -1,0 +1,9 @@
+PRIVATE_KEY=ed8d04ca3d79d3985.............7ecbafd29e
+ETHERSCAN_API_KEY=
+INFURA_API_KEY=API_KEY=66e35b8932754052acbddffc9c06ed38
+METADATA_ADDRESS=
+WRAPPER_ADDRESS=
+RESOLVER_ADDRESS=
+DEPLOYER_KEY=ed8d04ca3d9........b857ecbafd29e
+OWNER_KEY=ed8d04ca3d9b364a60e..........faba09d3cbafd29e
+BATCH_GATEWAY_URLS='["https://universal-offchain-unwrapper.ens-cf.workers.dev/"]'

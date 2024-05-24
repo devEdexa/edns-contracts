@@ -14,11 +14,8 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('SimplePublicSuffixList', {
     from: deployer,
-    gasLimit: 800000,
-    gasPrice:'100',
     args: [],
-    log: true,
-    
+    log: true
   })
   const psl = await ethers.getContract('SimplePublicSuffixList')
   const listOwner = await psl.owner()

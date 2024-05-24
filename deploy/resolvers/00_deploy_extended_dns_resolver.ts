@@ -8,6 +8,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('ExtendedDNSResolver', {
     from: deployer,
+    
     args: [],
     log: true,
   })

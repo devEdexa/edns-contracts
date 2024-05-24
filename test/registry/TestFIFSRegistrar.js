@@ -1,4 +1,4 @@
-const FIFSRegistrar = artifacts.require('./ethregistrar/FIFSRegistrar.sol')
+const FIFSRegistrar = artifacts.require('./edxregistrar/FIFSRegistrar.sol')
 const ENS = artifacts.require('./registry/ENSRegistry.sol')
 
 const { exceptions } = require('../test-utils')

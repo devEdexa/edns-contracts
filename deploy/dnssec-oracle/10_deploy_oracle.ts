@@ -86,6 +86,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('DNSSECImpl', {
     from: deployer,
+    
     args: [encodeAnchors(anchors)],
     log: true,
   })

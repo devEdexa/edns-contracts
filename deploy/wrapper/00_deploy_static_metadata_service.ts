@@ -17,6 +17,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('StaticMetadataService', {
     from: deployer,
+    
     args: [metadataUrl],
     log: true,
   })

@@ -16,6 +16,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('UniversalResolver', {
     from: deployer,
+    
     args: [registry.address, batchGatewayURLs],
     log: true,
   })

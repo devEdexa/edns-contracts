@@ -91,11 +91,18 @@ const config: HardhatUserConfig = {
       chainId: 80001,
       accounts: real_accounts,
     },
-    edexa: {
+    edexa_testnet: {
       url: `https://testnet.edexa.com/rpc`,
       tags: ['use_root'],
       chainId: 1995,
       accounts: real_accounts,
+    },
+    edexa_mainnet: {
+      url: `https://mainnet.edexa.network/rpc`,
+      tags: ['use_root'],
+      chainId: 5424,
+      accounts: real_accounts,
+      gasPrice: 21000
     }
   },
   mocha: {},

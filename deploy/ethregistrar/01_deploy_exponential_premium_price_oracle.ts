@@ -10,6 +10,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   if (network.name !== 'mainnet') {
     const dummyOracle = await deploy('DummyOracle', {
       from: deployer,
+      
       args: ['160000000000'],
       log: true,
     })
@@ -18,6 +19,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('ExponentialPremiumPriceOracle', {
     from: deployer,
+    
     args: [
       oracleAddress,
       [0, 0, '20294266869609', '5073566717402', '158548959919'],
@@ -29,7 +31,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 }
 
 func.id = 'price-oracle'
-func.tags = ['ethregistrar', 'ExponentialPremiumPriceOracle', 'DummyOracle']
+func.tags = ['edxregistrar', 'ExponentialPremiumPriceOracle', 'DummyOracle']
 func.dependencies = ['registry']
 
 export default func

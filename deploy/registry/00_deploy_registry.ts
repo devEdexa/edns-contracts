@@ -1,7 +1,7 @@
 import { ethers } from 'hardhat'
 import { DeployFunction } from 'hardhat-deploy/types'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
-
+let n =24;
 const ZERO_HASH =
   '0x0000000000000000000000000000000000000000000000000000000000000000'
 
@@ -42,6 +42,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
     await deploy('ENSRegistry', {
       from: deployer,
+      gasPrice: '30',
       args: [contract.address],
       log: true,
       contract: await deployments.getArtifact('ENSRegistryWithFallback'),

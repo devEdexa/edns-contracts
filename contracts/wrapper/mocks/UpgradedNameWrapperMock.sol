@@ -2,7 +2,7 @@
 pragma solidity ^0.8.4;
 import {INameWrapperUpgrade} from "../INameWrapperUpgrade.sol";
 import "../../registry/ENS.sol";
-import "../../ethregistrar/IBaseRegistrar.sol";
+import "../../edxregistrar/IBaseRegistrar.sol";
 import {BytesUtils} from "../BytesUtils.sol";
 
 contract UpgradedNameWrapperMock is INameWrapperUpgrade {

@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
-  "contractName": "ETHRegistrarController_mainnet_9380471",
-  "sourceName": "contracts/legacy/ETHRegistrarController_mainnet_9380471.sol",
+  "contractName": "EDXRegistrarController_mainnet_9380471",
+  "sourceName": "contracts/legacy/EDXRegistrarController_mainnet_9380471.sol",
   "abi": [
     {
       "inputs": [

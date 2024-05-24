@@ -32,6 +32,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const deployArgs = {
     from: deployer,
+    
     args: [
       registrar.address,
       priceOracle.address,
@@ -43,14 +44,14 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     ],
     log: true,
   }
-  const controller = await deploy('ETHRegistrarController', deployArgs)
+  const controller = await deploy('EDXRegistrarController', deployArgs)
   if (!controller.newlyDeployed) return
 
   if (owner !== deployer) {
-    const c = await ethers.getContract('ETHRegistrarController', deployer)
+    const c = await ethers.getContract('EDXRegistrarController', deployer)
     const tx = await c.transferOwnership(owner)
     console.log(
-      `Transferring ownership of ETHRegistrarController to ${owner} (tx: ${tx.hash})...`,
+      `Transferring ownership of EDXRegistrarController to ${owner} (tx: ${tx.hash})...`,
     )
     await tx.wait()
   }
@@ -65,17 +66,17 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   )
   const tx1 = await nameWrapper.setController(controller.address, true)
   console.log(
-    `Adding ETHRegistrarController as a controller of NameWrapper (tx: ${tx1.hash})...`,
+    `Adding EDXRegistrarController as a controller of NameWrapper (tx: ${tx1.hash})...`,
   )
   await tx1.wait()
 
   const tx2 = await reverseRegistrar.setController(controller.address, true)
   console.log(
-    `Adding ETHRegistrarController as a controller of ReverseRegistrar (tx: ${tx2.hash})...`,
+    `Adding EDXRegistrarController as a controller of ReverseRegistrar (tx: ${tx2.hash})...`,
   )
   await tx2.wait()
 
-  const artifact = await deployments.getArtifact('IETHRegistrarController')
+  const artifact = await deployments.getArtifact('IEDXRegistrarController')
   const interfaceId = computeInterfaceId(new Interface(artifact.abi))
 
   const resolver = await registry.resolver(ethers.utils.namehash('edx'))
@@ -92,12 +93,12 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     controller.address,
   )
   console.log(
-    `Setting ETHRegistrarController interface ID ${interfaceId} on .edx resolver (tx: ${tx3.hash})...`,
+    `Setting EDXRegistrarController interface ID ${interfaceId} on .edx resolver (tx: ${tx3.hash})...`,
   )
   await tx3.wait()
 }
 
-func.tags = ['ethregistrar', 'ETHRegistrarController']
+func.tags = ['edxregistrar', 'EDXRegistrarController']
 func.dependencies = [
   'ENSRegistry',
   'BaseRegistrarImplementation',

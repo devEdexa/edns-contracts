@@ -15,6 +15,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('Root', {
     from: deployer,
+    // nonce: await ethers.provider.getTransactionCount(deployer)+1,
     args: [registry.address],
     log: true,
   })

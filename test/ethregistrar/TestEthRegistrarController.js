@@ -23,7 +23,7 @@ const REGISTRATION_TIME = 28 * DAY
 const BUFFERED_REGISTRATION_COST = REGISTRATION_TIME + 3 * DAY
 const GRACE_PERIOD = 90 * DAY
 const NULL_ADDRESS = ZERO_ADDRESS
-contract('ETHRegistrarController', function () {
+contract('EDXRegistrarController', function () {
   let ens
   let resolver
   let resolver2 // resolver signed by accounts[1]
@@ -116,7 +116,7 @@ contract('ETHRegistrarController', function () {
       [0, 0, 4, 2, 1],
     )
     controller = await deploy(
-      'ETHRegistrarController',
+      'EDXRegistrarController',
       baseRegistrar.address,
       priceOracle.address,
       600,

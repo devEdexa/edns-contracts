@@ -1,7 +1,7 @@
 {
   "_format": "hh-sol-artifact-1",
   "contractName": "Resolver",
-  "sourceName": "contracts/legacy/ETHRegistrarController_mainnet_9380471.sol",
+  "sourceName": "contracts/legacy/EDXRegistrarController_mainnet_9380471.sol",
   "abi": [
     {
       "anonymous": false,

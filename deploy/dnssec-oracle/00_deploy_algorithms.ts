@@ -8,16 +8,19 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('RSASHA1Algorithm', {
     from: deployer,
+    
     args: [],
     log: true,
   })
   await deploy('RSASHA256Algorithm', {
     from: deployer,
+    
     args: [],
     log: true,
   })
   await deploy('P256SHA256Algorithm', {
     from: deployer,
+    
     args: [],
     log: true,
   })
@@ -25,6 +28,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   if (network.tags.test) {
     await deploy('DummyAlgorithm', {
       from: deployer,
+      
       args: [],
       log: true,
     })

@@ -1,7 +1,7 @@
 const ENS = artifacts.require('./registry/ENSRegistry')
 const PublicResolver = artifacts.require('./resolvers/PublicResolver')
 const BaseRegistrar = artifacts.require('./BaseRegistrarImplementation')
-const ETHRegistrarController = artifacts.require('./ETHRegistrarController')
+const EDXRegistrarController = artifacts.require('./EDXRegistrarController')
 const DummyOracle = artifacts.require('./DummyOracle')
 const StablePriceOracle = artifacts.require('./StablePriceOracle')
 const StaticBulkRenewal = artifacts.require('./StaticBulkRenewal')
@@ -71,7 +71,7 @@ contract('StaticBulkRenewal', function (accounts) {
       dummyOracle.address,
       [0, 0, 4, 2, 1],
     )
-    controller = await ETHRegistrarController.new(
+    controller = await EDXRegistrarController.new(
       baseRegistrar.address,
       priceOracle.address,
       600,

@@ -23,6 +23,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       dnssec.address,
       publicSuffixList.address,
       registry.address,
+     
     ],
     log: true,
   })

@@ -93,10 +93,12 @@ const config: HardhatUserConfig = {
       accounts: real_accounts,
     },
     edexa_testnet: {
-      url: `https://testnet.edexa.com/rpc`,
+      url: `https://testnet.edexa.network/rpc`,
       tags: ['use_root'],
       chainId: 1995,
       accounts: real_accounts,
+      gasPrice: 2100000,
+      gasMultiplier: 2,
     },
     edexa_mainnet: {
       url: `https://mainnet.edexa.network/rpc`,
@@ -104,6 +106,13 @@ const config: HardhatUserConfig = {
       chainId: 5424,
       accounts: real_accounts,
       gasPrice: 21000
+    },
+    amoy: {
+      url: `https://rpc-amoy.polygon.technology`,
+      tags: ['use_root'],
+      chainId: 80002,
+      accounts: real_accounts,
+      gasPrice:500000000,
     }
   },
   mocha: {},

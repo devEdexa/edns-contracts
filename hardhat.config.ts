@@ -74,11 +74,11 @@ const config: HardhatUserConfig = {
       accounts: real_accounts,
     },
     holesky: {
-      url: `https://holesky.drpc.org`,
+      url: `https://1rpc.io/holesky`,
       tags: ['test', 'use_root'],
       chainId: 17000,
       accounts: real_accounts,
-      gasPrice: 1259042676
+       gasPrice: 1259042600
     },
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,

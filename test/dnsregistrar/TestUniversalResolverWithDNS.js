@@ -122,7 +122,7 @@ contract('UniversalResolver', function (accounts) {
   })
 
   beforeEach(async () => {
-    node = namehash.hash('edx')
+    node = namehash.hash('tedx')
     ens = await deploy('ENSRegistry')
     root = await deploy('Root', ens.address)
     dnssec = await deploy('DNSSECImpl', encodeAnchors(anchors))
@@ -150,7 +150,7 @@ contract('UniversalResolver', function (accounts) {
       ens.address,
     )
 
-    await ens.setSubnodeOwner(EMPTY_BYTES32, sha3('edx'), accounts[0], {
+    await ens.setSubnodeOwner(EMPTY_BYTES32, sha3('tedx'), accounts[0], {
       from: accounts[0],
     })
 

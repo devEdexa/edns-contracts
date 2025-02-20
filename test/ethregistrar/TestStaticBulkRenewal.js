@@ -14,8 +14,8 @@ const sha3 = require('web3-utils').sha3
 const toBN = require('web3-utils').toBN
 const { exceptions } = require('../test-utils')
 
-const ETH_LABEL = sha3('edx')
-const ETH_NAMEHASH = namehash.hash('edx')
+const ETH_LABEL = sha3('tedx')
+const ETH_NAMEHASH = namehash.hash('tedx')
 
 contract('StaticBulkRenewal', function (accounts) {
   let ens
@@ -35,7 +35,7 @@ contract('StaticBulkRenewal', function (accounts) {
     // Create a registry
     ens = await ENS.new()
     // Create a base registrar
-    baseRegistrar = await BaseRegistrar.new(ens.address, namehash.hash('edx'), {
+    baseRegistrar = await BaseRegistrar.new(ens.address, namehash.hash('tedx'), {
       from: ownerAccount,
     })
 
@@ -94,8 +94,8 @@ contract('StaticBulkRenewal', function (accounts) {
     // Create the bulk registration contract
     staticBulkRenewal = await StaticBulkRenewal.new(controller.address)
 
-    // Configure a resolver for .edx and register the controller interface
-    // then transfer the .edx node to the base registrar.
+    // Configure a resolver for .tedx and register the controller interface
+    // then transfer the .tedx node to the base registrar.
     await ens.setSubnodeRecord(
       '0x0',
       ETH_LABEL,
@@ -133,6 +133,6 @@ contract('StaticBulkRenewal', function (accounts) {
     const newExpiry = await baseRegistrar.nameExpires(sha3('test2'))
     assert.equal(newExpiry - oldExpiry, 86400)
     // Check any excess funds are returned
-    assert.equal(await web3.edx.getBalance(staticBulkRenewal.address), 0)
+    assert.equal(await web3.tedx.getBalance(staticBulkRenewal.address), 0)
   })
 })

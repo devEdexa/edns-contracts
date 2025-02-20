@@ -88,7 +88,7 @@ contract('EDXRegistrarController', function () {
     baseRegistrar = await deploy(
       'BaseRegistrarImplementation',
       ens.address,
-      namehash('edx'),
+      namehash('tedx'),
     )
 
     reverseRegistrar = await deploy('ReverseRegistrar', ens.address)
@@ -107,7 +107,7 @@ contract('EDXRegistrarController', function () {
       ownerAccount,
     )
 
-    await ens.setSubnodeOwner(EMPTY_BYTES, sha3('edx'), baseRegistrar.address)
+    await ens.setSubnodeOwner(EMPTY_BYTES, sha3('tedx'), baseRegistrar.address)
 
     const dummyOracle = await deploy('DummyOracle', '100000000')
     priceOracle = await deploy(
@@ -140,11 +140,11 @@ contract('EDXRegistrarController', function () {
 
     callData = [
       resolver.interface.encodeFunctionData('setAddr(bytes32,address)', [
-        namehash('newconfigname.edx'),
+        namehash('newconfigname.tedx'),
         registrantAccount,
       ]),
       resolver.interface.encodeFunctionData('setText', [
-        namehash('newconfigname.edx'),
+        namehash('newconfigname.tedx'),
         'url',
         'ethereum.com',
       ]),
@@ -196,7 +196,7 @@ contract('EDXRegistrarController', function () {
 
   it('should permit new registrations', async () => {
     const name = 'newname'
-    const balanceBefore = await web3.edx.getBalance(controller.address)
+    const balanceBefore = await web3.tedx.getBalance(controller.address)
     const tx = await registerName(name)
     const block = await provider.getBlock(tx.blockNumber)
     await expect(tx)
@@ -211,7 +211,7 @@ contract('EDXRegistrarController', function () {
       )
 
     expect(
-      (await web3.edx.getBalance(controller.address)) - balanceBefore,
+      (await web3.tedx.getBalance(controller.address)) - balanceBefore,
     ).to.equal(REGISTRATION_TIME)
   })
 
@@ -240,11 +240,11 @@ contract('EDXRegistrarController', function () {
     )
     var tx = await controller2.commit(commitment)
     expect(await controller2.commitments(commitment)).to.equal(
-      (await web3.edx.getBlock(tx.blockNumber)).timestamp,
+      (await web3.tedx.getBlock(tx.blockNumber)).timestamp,
     )
 
     await evm.advanceTime((await controller2.minCommitmentAge()).toNumber())
-    var balanceBefore = await web3.edx.getBalance(controller.address)
+    var balanceBefore = await web3.tedx.getBalance(controller.address)
     var tx = await controller2.register(
       'newconfigname',
       registrantAccount,
@@ -271,10 +271,10 @@ contract('EDXRegistrarController', function () {
       )
 
     expect(
-      (await web3.edx.getBalance(controller.address)) - balanceBefore,
+      (await web3.tedx.getBalance(controller.address)) - balanceBefore,
     ).to.equal(REGISTRATION_TIME)
 
-    var nodehash = namehash('newconfigname.edx')
+    var nodehash = namehash('newconfigname.tedx')
     expect(await ens.resolver(nodehash)).to.equal(resolver.address)
     expect(await ens.owner(nodehash)).to.equal(nameWrapper.address)
     expect(await baseRegistrar.ownerOf(sha3('newconfigname'))).to.equal(
@@ -316,7 +316,7 @@ contract('EDXRegistrarController', function () {
 
     const tx = await controller.commit(commitment)
     expect(await controller.commitments(commitment)).to.equal(
-      (await web3.edx.getBlock(tx.blockNumber)).timestamp,
+      (await web3.tedx.getBlock(tx.blockNumber)).timestamp,
     )
 
     await evm.advanceTime((await controller.minCommitmentAge()).toNumber())
@@ -349,7 +349,7 @@ contract('EDXRegistrarController', function () {
 
     const tx = await controller.commit(commitment)
     expect(await controller.commitments(commitment)).to.equal(
-      (await web3.edx.getBlock(tx.blockNumber)).timestamp,
+      (await web3.tedx.getBlock(tx.blockNumber)).timestamp,
     )
 
     await evm.advanceTime((await controller.minCommitmentAge()).toNumber())
@@ -379,7 +379,7 @@ contract('EDXRegistrarController', function () {
       resolver.address,
       [
         resolver.interface.encodeFunctionData('setAddr(bytes32,address)', [
-          namehash('othername.edx'),
+          namehash('othername.tedx'),
           registrantAccount,
         ]),
       ],
@@ -388,7 +388,7 @@ contract('EDXRegistrarController', function () {
     )
     const tx = await controller2.commit(commitment)
     expect(await controller2.commitments(commitment)).to.equal(
-      (await web3.edx.getBlock(tx.blockNumber)).timestamp,
+      (await web3.tedx.getBlock(tx.blockNumber)).timestamp,
     )
 
     await evm.advanceTime((await controller2.minCommitmentAge()).toNumber())
@@ -402,7 +402,7 @@ contract('EDXRegistrarController', function () {
         resolver.address,
         [
           resolver.interface.encodeFunctionData('setAddr(bytes32,address)', [
-            namehash('othername.edx'),
+            namehash('othername.tedx'),
             registrantAccount,
           ]),
         ],
@@ -422,12 +422,12 @@ contract('EDXRegistrarController', function () {
       resolver.address,
       [
         resolver.interface.encodeFunctionData('setAddr(bytes32,address)', [
-          namehash('awesome.edx'),
+          namehash('awesome.tedx'),
           registrantAccount,
         ]),
         resolver.interface.encodeFunctionData(
           'setText(bytes32,string,string)',
-          [namehash('other.edx'), 'url', 'ethereum.com'],
+          [namehash('other.tedx'), 'url', 'ethereum.com'],
         ),
       ],
       false,
@@ -435,7 +435,7 @@ contract('EDXRegistrarController', function () {
     )
     const tx = await controller2.commit(commitment)
     expect(await controller2.commitments(commitment)).to.equal(
-      (await web3.edx.getBlock(tx.blockNumber)).timestamp,
+      (await web3.tedx.getBlock(tx.blockNumber)).timestamp,
     )
 
     await evm.advanceTime((await controller2.minCommitmentAge()).toNumber())
@@ -449,12 +449,12 @@ contract('EDXRegistrarController', function () {
         resolver.address,
         [
           resolver.interface.encodeFunctionData('setAddr(bytes32,address)', [
-            namehash('awesome.edx'),
+            namehash('awesome.tedx'),
             registrantAccount,
           ]),
           resolver.interface.encodeFunctionData(
             'setText(bytes32,string,string)',
-            [namehash('other.edx'), 'url', 'ethereum.com'],
+            [namehash('other.tedx'), 'url', 'ethereum.com'],
           ),
         ],
         false,
@@ -477,11 +477,11 @@ contract('EDXRegistrarController', function () {
     )
     let tx = await controller.commit(commitment)
     expect(await controller.commitments(commitment)).to.equal(
-      (await web3.edx.getBlock(tx.blockNumber)).timestamp,
+      (await web3.tedx.getBlock(tx.blockNumber)).timestamp,
     )
 
     await evm.advanceTime((await controller.minCommitmentAge()).toNumber())
-    const balanceBefore = await web3.edx.getBalance(controller.address)
+    const balanceBefore = await web3.tedx.getBalance(controller.address)
     let tx2 = await controller.register(
       'newconfigname2',
       registrantAccount,
@@ -507,11 +507,11 @@ contract('EDXRegistrarController', function () {
         block.timestamp + REGISTRATION_TIME,
       )
 
-    const nodehash = namehash('newconfigname2.edx')
+    const nodehash = namehash('newconfigname2.tedx')
     expect(await ens.resolver(nodehash)).to.equal(resolver.address)
     expect(await resolver['addr(bytes32)'](nodehash)).to.equal(NULL_ADDRESS)
     expect(
-      (await web3.edx.getBalance(controller.address)) - balanceBefore,
+      (await web3.tedx.getBalance(controller.address)) - balanceBefore,
     ).to.equal(REGISTRATION_TIME)
   })
 
@@ -614,10 +614,10 @@ contract('EDXRegistrarController', function () {
 
   it('should allow anyone to renew a name without changing fuse expiry', async () => {
     await registerName('newname')
-    var nodehash = namehash('newname.edx')
+    var nodehash = namehash('newname.tedx')
     var fuseExpiry = (await nameWrapper.getData(nodehash))[2]
     var expires = await baseRegistrar.nameExpires(sha3('newname'))
-    var balanceBefore = await web3.edx.getBalance(controller.address)
+    var balanceBefore = await web3.tedx.getBalance(controller.address)
     const duration = 86400
     const [price] = await controller.rentPrice(sha3('newname'), duration)
     await controller.renew('newname', duration, { value: price })
@@ -627,7 +627,7 @@ contract('EDXRegistrarController', function () {
     expect(newFuseExpiry.toNumber() - fuseExpiry.toNumber()).to.equal(86400)
 
     expect(
-      (await web3.edx.getBalance(controller.address)) - balanceBefore,
+      (await web3.tedx.getBalance(controller.address)) - balanceBefore,
     ).to.equal(86400)
   })
 
@@ -636,11 +636,11 @@ contract('EDXRegistrarController', function () {
     const PARENT_CANNOT_CONTROL = 64
 
     await registerName('newname')
-    var nodehash = namehash('newname.edx')
+    var nodehash = namehash('newname.tedx')
     const [, fuses, fuseExpiry] = await nameWrapper.getData(nodehash)
 
     var expires = await baseRegistrar.nameExpires(sha3('newname'))
-    var balanceBefore = await web3.edx.getBalance(controller.address)
+    var balanceBefore = await web3.tedx.getBalance(controller.address)
     const duration = 86400
     const [price] = await controller.rentPrice(sha3('newname'), duration)
     await controller2.renew('newname', duration, { value: price })
@@ -650,14 +650,14 @@ contract('EDXRegistrarController', function () {
     expect(newFuseExpiry.toNumber() - fuseExpiry.toNumber()).to.equal(duration)
     expect(newFuses).to.equal(fuses)
     expect(
-      (await web3.edx.getBalance(controller.address)) - balanceBefore,
+      (await web3.tedx.getBalance(controller.address)) - balanceBefore,
     ).to.equal(86400)
   })
 
   it('non wrapped names can renew', async () => {
     const label = 'newname'
     const tokenId = sha3(label)
-    const nodehash = namehash(`${label}.edx`)
+    const nodehash = namehash(`${label}.tedx`)
     // this is to allow user to register without namewrapped
     await baseRegistrar.addController(ownerAccount)
     await baseRegistrar.register(tokenId, ownerAccount, 84600)
@@ -684,7 +684,7 @@ contract('EDXRegistrarController', function () {
 
   it('should allow anyone to withdraw funds and transfer to the registrar owner', async () => {
     await controller.withdraw({ from: ownerAccount })
-    expect(parseInt(await web3.edx.getBalance(controller.address))).to.equal(0)
+    expect(parseInt(await web3.tedx.getBalance(controller.address))).to.equal(0)
   })
 
   it('should set the reverse record of the account', async () => {
@@ -714,7 +714,7 @@ contract('EDXRegistrarController', function () {
     )
 
     expect(await resolver.name(getReverseNode(ownerAccount))).to.equal(
-      'reverse.edx',
+      'reverse.tedx',
     )
   })
 
@@ -749,7 +749,7 @@ contract('EDXRegistrarController', function () {
 
   it('should auto wrap the name and set the ERC721 owner to the wrapper', async () => {
     const label = 'wrapper'
-    const name = label + '.edx'
+    const name = label + '.tedx'
     const commitment = await controller.makeCommitment(
       label,
       registrantAccount,
@@ -788,7 +788,7 @@ contract('EDXRegistrarController', function () {
   it('should auto wrap the name and allow fuses and expiry to be set', async () => {
     const MAX_INT_64 = 2n ** 64n - 1n
     const label = 'fuses'
-    const name = label + '.edx'
+    const name = label + '.tedx'
     const commitment = await controller.makeCommitment(
       label,
       registrantAccount,
@@ -823,7 +823,7 @@ contract('EDXRegistrarController', function () {
 
   it('approval should reduce gas for registration', async () => {
     const label = 'other'
-    const name = label + '.edx'
+    const name = label + '.tedx'
     const node = namehash(name)
     const commitment = await controller.makeCommitment(
       label,
@@ -912,7 +912,7 @@ contract('EDXRegistrarController', function () {
 
   it('should not permit new registrations with non resolver function calls', async () => {
     const label = 'newconfigname'
-    const name = `${label}.edx`
+    const name = `${label}.tedx`
     const node = namehash(name)
     const secondTokenDuration = 788400000 // keep bogus NFT for 25 years;
     const callData = [
@@ -933,7 +933,7 @@ contract('EDXRegistrarController', function () {
     )
     var tx = await controller.commit(commitment)
     expect(await controller.commitments(commitment)).to.equal(
-      (await web3.edx.getBlock(tx.blockNumber)).timestamp,
+      (await web3.tedx.getBlock(tx.blockNumber)).timestamp,
     )
     await evm.advanceTime((await controller.minCommitmentAge()).toNumber())
     await expect(

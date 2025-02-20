@@ -41,7 +41,7 @@ contract EDXRegistrarController is
 
     uint256 public constant MIN_REGISTRATION_DURATION = 28 days;
     bytes32 private constant ETH_NODE =
-        0x07ff830edb643cc3e7c10e9281196b83e765337a9b8fd9248d77e8d21e04a2a5;
+        0x2e03ffbddae23a1677083cb315c6103af825867e22986f56289273e978483172;
     uint64 private constant MAX_EXPIRY = type(uint64).max;
     BaseRegistrarImplementation immutable base;
     IPriceOracle public immutable prices;
@@ -270,7 +270,7 @@ contract EDXRegistrarController is
         bytes32 label,
         bytes[] calldata data
     ) internal {
-        // use hardcoded .edx namehash
+        // use hardcoded .tedx namehash
         bytes32 nodehash = keccak256(abi.encodePacked(ETH_NODE, label));
         Resolver resolver = Resolver(resolverAddress);
         resolver.multicallWithNodeCheck(nodehash, data);
@@ -285,7 +285,7 @@ contract EDXRegistrarController is
             msg.sender,
             owner,
             resolver,
-            string.concat(name, ".edx")
+            string.concat(name, ".tedx")
         );
     }
 }

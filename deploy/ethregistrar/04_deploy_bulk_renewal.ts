@@ -39,21 +39,21 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     },
   )
 
-  const resolver = await registry.resolver(ethers.utils.namehash('edx'))
+  const resolver = await registry.resolver(ethers.utils.namehash('tedx'))
   if (resolver === ethers.constants.AddressZero) {
     console.log(
-      `No resolver set for .edx; not setting interface ${interfaceId} for BulkRenewal`,
+      `No resolver set for .tedx; not setting interface ${interfaceId} for BulkRenewal`,
     )
     return
   }
   const resolverContract = await ethers.getContractAt('OwnedResolver', resolver)
   const tx = await resolverContract.setInterface(
-    ethers.utils.namehash('edx'),
+    ethers.utils.namehash('tedx'),
     interfaceId,
     bulkRenewal.address,
   )
   console.log(
-    `Setting BulkRenewal interface ID ${interfaceId} on .edx resolver (tx: ${tx.hash})...`,
+    `Setting BulkRenewal interface ID ${interfaceId} on .tedx resolver (tx: ${tx.hash})...`,
   )
   await tx.wait()
   return true

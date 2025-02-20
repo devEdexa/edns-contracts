@@ -25,11 +25,11 @@ contract('BaseRegistrar', function (accounts) {
   before(async () => {
     ens = await ENS.new()
 
-    registrar = await BaseRegistrar.new(ens.address, namehash.hash('edx'), {
+    registrar = await BaseRegistrar.new(ens.address, namehash.hash('tedx'), {
       from: ownerAccount,
     })
     await registrar.addController(controllerAccount, { from: ownerAccount })
-    await ens.setSubnodeOwner('0x0', sha3('edx'), registrar.address)
+    await ens.setSubnodeOwner('0x0', sha3('tedx'), registrar.address)
   })
 
   it('should allow new registrations', async () => {
@@ -39,9 +39,9 @@ contract('BaseRegistrar', function (accounts) {
       86400,
       { from: controllerAccount },
     )
-    var block = await web3.edx.getBlock(tx.receipt.blockHash)
+    var block = await web3.tedx.getBlock(tx.receipt.blockHash)
     assert.equal(
-      await ens.owner(namehash.hash('newname.edx')),
+      await ens.owner(namehash.hash('newname.tedx')),
       registrantAccount,
     )
     assert.equal(await registrar.ownerOf(sha3('newname')), registrantAccount)
@@ -58,8 +58,8 @@ contract('BaseRegistrar', function (accounts) {
       86400,
       { from: controllerAccount },
     )
-    var block = await web3.edx.getBlock(tx.receipt.blockHash)
-    assert.equal(await ens.owner(namehash.hash('silentname.edx')), ZERO_ADDRESS)
+    var block = await web3.tedx.getBlock(tx.receipt.blockHash)
+    assert.equal(await ens.owner(namehash.hash('silentname.tedx')), ZERO_ADDRESS)
     assert.equal(await registrar.ownerOf(sha3('silentname')), registrantAccount)
     assert.equal(
       (await registrar.nameExpires(sha3('silentname'))).toNumber(),
@@ -106,19 +106,19 @@ contract('BaseRegistrar', function (accounts) {
   })
 
   it('should permit the owner to reclaim a name', async () => {
-    await ens.setSubnodeOwner(ZERO_HASH, sha3('edx'), accounts[0])
+    await ens.setSubnodeOwner(ZERO_HASH, sha3('tedx'), accounts[0])
     await ens.setSubnodeOwner(
-      namehash.hash('edx'),
+      namehash.hash('tedx'),
       sha3('newname'),
       ZERO_ADDRESS,
     )
-    assert.equal(await ens.owner(namehash.hash('newname.edx')), ZERO_ADDRESS)
-    await ens.setSubnodeOwner(ZERO_HASH, sha3('edx'), registrar.address)
+    assert.equal(await ens.owner(namehash.hash('newname.tedx')), ZERO_ADDRESS)
+    await ens.setSubnodeOwner(ZERO_HASH, sha3('tedx'), registrar.address)
     await registrar.reclaim(sha3('newname'), registrantAccount, {
       from: registrantAccount,
     })
     assert.equal(
-      await ens.owner(namehash.hash('newname.edx')),
+      await ens.owner(namehash.hash('newname.tedx')),
       registrantAccount,
     )
   })
@@ -141,7 +141,7 @@ contract('BaseRegistrar', function (accounts) {
     assert.equal(await registrar.ownerOf(sha3('newname')), otherAccount)
     // Transfer does not update ENS without a call to reclaim.
     assert.equal(
-      await ens.owner(namehash.hash('newname.edx')),
+      await ens.owner(namehash.hash('newname.tedx')),
       registrantAccount,
     )
     await registrar.transferFrom(
@@ -162,7 +162,7 @@ contract('BaseRegistrar', function (accounts) {
 
   it('should not permit transfer or reclaim during the grace period', async () => {
     // Advance to the grace period
-    var ts = (await web3.edx.getBlock('latest')).timestamp
+    var ts = (await web3.tedx.getBlock('latest')).timestamp
     await evm.advanceTime(
       (await registrar.nameExpires(sha3('newname'))).toNumber() - ts + 3600,
     )
@@ -184,7 +184,7 @@ contract('BaseRegistrar', function (accounts) {
   })
 
   it('should allow registration of an expired domain', async () => {
-    var ts = (await web3.edx.getBlock('latest')).timestamp
+    var ts = (await web3.tedx.getBlock('latest')).timestamp
     var expires = await registrar.nameExpires(sha3('newname'))
     var grace = await registrar.GRACE_PERIOD()
     await evm.advanceTime(expires.toNumber() - ts + grace.toNumber() + 3600)
@@ -202,6 +202,6 @@ contract('BaseRegistrar', function (accounts) {
 
   it('should allow the owner to set a resolver address', async () => {
     await registrar.setResolver(accounts[1], { from: ownerAccount })
-    assert.equal(await ens.resolver(namehash.hash('edx')), accounts[1])
+    assert.equal(await ens.resolver(namehash.hash('tedx')), accounts[1])
   })
 })

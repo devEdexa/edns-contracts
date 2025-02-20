@@ -79,21 +79,21 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const artifact = await deployments.getArtifact('IEDXRegistrarController')
   const interfaceId = computeInterfaceId(new Interface(artifact.abi))
 
-  const resolver = await registry.resolver(ethers.utils.namehash('edx'))
+  const resolver = await registry.resolver(ethers.utils.namehash('tedx'))
   if (resolver === ethers.constants.AddressZero) {
     console.log(
-      `No resolver set for .edx; not setting interface ${interfaceId} for ETH Registrar Controller`,
+      `No resolver set for .tedx; not setting interface ${interfaceId} for ETH Registrar Controller`,
     )
     return
   }
   const resolverContract = await ethers.getContractAt('OwnedResolver', resolver)
   const tx3 = await resolverContract.setInterface(
-    ethers.utils.namehash('edx'),
+    ethers.utils.namehash('tedx'),
     interfaceId,
     controller.address,
   )
   console.log(
-    `Setting EDXRegistrarController interface ID ${interfaceId} on .edx resolver (tx: ${tx3.hash})...`,
+    `Setting EDXRegistrarController interface ID ${interfaceId} on .tedx resolver (tx: ${tx3.hash})...`,
   )
   await tx3.wait()
 }

@@ -9,7 +9,7 @@ contract TestUnwrap is Ownable {
     using BytesUtils for bytes;
 
     bytes32 private constant ETH_NODE =
-        0x2e03ffbddae23a1677083cb315c6103af825867e22986f56289273e978483172;
+        0x07ff830edb643cc3e7c10e9281196b83e765337a9b8fd9248d77e8d21e04a2a5;
 
     ENS public immutable ens;
     IBaseRegistrar public immutable registrar;

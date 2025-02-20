@@ -35,7 +35,7 @@ describe('TestUnwrap', () => {
     BaseRegistrar = await deploy(
       'BaseRegistrarImplementation',
       EnsRegistry.address,
-      namehash('tedx'),
+      namehash('edx'),
     )
 
     await BaseRegistrar.addController(account)
@@ -71,15 +71,15 @@ describe('TestUnwrap', () => {
       BaseRegistrar.address,
     )
 
-    // setup .tedx
+    // setup .edx
     await EnsRegistry.setSubnodeOwner(
       ROOT_NODE,
-      labelhash('tedx'),
+      labelhash('edx'),
       BaseRegistrar.address,
     )
 
     //make sure base registrar is owner of eth TLD
-    expect(await EnsRegistry.owner(namehash('tedx'))).to.equal(
+    expect(await EnsRegistry.owner(namehash('edx'))).to.equal(
       BaseRegistrar.address,
     )
   })
@@ -92,11 +92,11 @@ describe('TestUnwrap', () => {
   })
 
   describe('wrapFromUpgrade()', () => {
-    describe('.tedx', () => {
-      const encodedName = encodeName('wrapped.tedx')
+    describe('.edx', () => {
+      const encodedName = encodeName('wrapped.edx')
       const label = 'wrapped'
       const labelHash = labelhash(label)
-      const nameHash = namehash(label + '.tedx')
+      const nameHash = namehash(label + '.edx')
 
       it('allows unwrapping from an approved NameWrapper', async () => {
         await BaseRegistrar.register(labelHash, account, 1 * DAY)
@@ -199,9 +199,9 @@ describe('TestUnwrap', () => {
     describe('other', () => {
       const label = 'to-upgrade'
       const parentLabel = 'wrapped2'
-      const name = label + '.' + parentLabel + '.tedx'
+      const name = label + '.' + parentLabel + '.edx'
       const parentLabelHash = labelhash(parentLabel)
-      const parentHash = namehash(parentLabel + '.tedx')
+      const parentHash = namehash(parentLabel + '.edx')
       const nameHash = namehash(name)
       const encodedName = encodeName(name)
       it('allows unwrapping from an approved NameWrapper', async () => {

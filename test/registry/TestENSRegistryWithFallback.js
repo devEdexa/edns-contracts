@@ -48,17 +48,17 @@ contract('ENSRegistryWithFallback', function (accounts) {
   })
 
   describe('fallback', async () => {
-    let hash = namehash.hash('tedx')
+    let hash = namehash.hash('edx')
 
     beforeEach(async () => {
-      await old.setSubnodeOwner('0x0', sha3('tedx'), accounts[0], {
+      await old.setSubnodeOwner('0x0', sha3('edx'), accounts[0], {
         from: accounts[0],
       })
     })
 
     it('should use fallback ttl if owner not set', async () => {
-      let hash = namehash.hash('tedx')
-      await old.setSubnodeOwner('0x0', sha3('tedx'), accounts[0], {
+      let hash = namehash.hash('edx')
+      await old.setSubnodeOwner('0x0', sha3('edx'), accounts[0], {
         from: accounts[0],
       })
       await old.setTTL(hash, 3600, { from: accounts[0] })

@@ -29,7 +29,7 @@ describe('ReverseClaimer', () => {
     BaseRegistrar = await deploy(
       'BaseRegistrarImplementation',
       EnsRegistry.address,
-      namehash('tedx'),
+      namehash('edx'),
     )
 
     await BaseRegistrar.addController(account)

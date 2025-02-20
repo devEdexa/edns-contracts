@@ -53,21 +53,21 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const artifact = await deployments.getArtifact('INameWrapper')
   const interfaceId = computeInterfaceId(new Interface(artifact.abi))
-  const resolver = await registry.resolver(ethers.utils.namehash('tedx'))
+  const resolver = await registry.resolver(ethers.utils.namehash('edx'))
   if (resolver === ethers.constants.AddressZero) {
     console.log(
-      `No resolver set for .tedx; not setting interface ${interfaceId} for NameWrapper`,
+      `No resolver set for .edx; not setting interface ${interfaceId} for NameWrapper`,
     )
     return
   }
   const resolverContract = await ethers.getContractAt('OwnedResolver', resolver)
   const tx3 = await resolverContract.setInterface(
-    ethers.utils.namehash('tedx'),
+    ethers.utils.namehash('edx'),
     interfaceId,
     nameWrapper.address,
   )
   console.log(
-    `Setting NameWrapper interface ID ${interfaceId} on .tedx resolver (tx: ${tx3.hash})...`,
+    `Setting NameWrapper interface ID ${interfaceId} on .edx resolver (tx: ${tx3.hash})...`,
   )
   await tx3.wait()
 }

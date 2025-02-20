@@ -47,7 +47,7 @@ contract NameWrapper is
 
     uint64 private constant GRACE_PERIOD = 90 days;
     bytes32 private constant ETH_NODE =
-        0x2e03ffbddae23a1677083cb315c6103af825867e22986f56289273e978483172;
+        0x07ff830edb643cc3e7c10e9281196b83e765337a9b8fd9248d77e8d21e04a2a5;
     bytes32 private constant ETH_LABELHASH =
         0xf789dfad694953a78b732be601c476f63f7fec72c7ee416b7119686b18b55cce;
     bytes32 private constant ROOT_NODE =
@@ -80,7 +80,7 @@ contract NameWrapper is
             MAX_EXPIRY
         );
         names[ROOT_NODE] = "\x00";
-        names[ETH_NODE] = "\x04tedx\x00";
+        names[ETH_NODE] = "\x03edx\x00";
     }
 
     function supportsInterface(
@@ -96,7 +96,7 @@ contract NameWrapper is
 
     /**
      * @notice Gets the owner of a name
-     * @param id Label as a string of the .tedx domain to wrap
+     * @param id Label as a string of the .edx domain to wrap
      * @return owner The owner of the name
      */
 
@@ -268,9 +268,9 @@ contract NameWrapper is
     }
 
     /**
-     * @notice Wraps a .tedx domain, creating a new token and sending the original ERC721 token to this contract
-     * @dev Can be called by the owner of the name on the .tedx registrar or an authorised caller on the registrar
-     * @param label Label as a string of the .tedx domain to wrap
+     * @notice Wraps a .edx domain, creating a new token and sending the original ERC721 token to this contract
+     * @dev Can be called by the owner of the name on the .edx registrar or an authorised caller on the registrar
+     * @param label Label as a string of the .edx domain to wrap
      * @param wrappedOwner Owner of the name in this contract
      * @param ownerControlledFuses Initial owner-controlled fuses to set
      * @param resolver Resolver contract address
@@ -312,14 +312,14 @@ contract NameWrapper is
     }
 
     /**
-     * @dev Registers a new .tedx second-level domain and wraps it.
+     * @dev Registers a new .edx second-level domain and wraps it.
      *      Only callable by authorised controllers.
-     * @param label The label to register (Eg, 'foo' for 'foo.tedx').
+     * @param label The label to register (Eg, 'foo' for 'foo.edx').
      * @param wrappedOwner The owner of the wrapped name.
      * @param duration The duration, in seconds, to register the name for.
      * @param resolver The resolver address to set on the ENS registry (optional).
      * @param ownerControlledFuses Initial owner-controlled fuses to set
-     * @return registrarExpiry The expiry date of the new name on the .tedx registrar, in seconds since the Unix epoch.
+     * @return registrarExpiry The expiry date of the new name on the .edx registrar, in seconds since the Unix epoch.
      */
 
     function registerAndWrapETH2LD(
@@ -341,11 +341,11 @@ contract NameWrapper is
     }
 
     /**
-     * @notice Renews a .tedx second-level domain.
+     * @notice Renews a .edx second-level domain.
      * @dev Only callable by authorised controllers.
-     * @param tokenId The hash of the label to register (eg, `keccak256('foo')`, for 'foo.tedx').
+     * @param tokenId The hash of the label to register (eg, `keccak256('foo')`, for 'foo.edx').
      * @param duration The number of seconds to renew the name for.
-     * @return expires The expiry date of the name on the .tedx registrar, in seconds since the Unix epoch.
+     * @return expires The expiry date of the name on the .edx registrar, in seconds since the Unix epoch.
      */
 
     function renew(
@@ -379,7 +379,7 @@ contract NameWrapper is
     }
 
     /**
-     * @notice Wraps a non .tedx domain, of any kind. Could be a DNSSEC name vitalik.xyz or a subdomain
+     * @notice Wraps a non .edx domain, of any kind. Could be a DNSSEC name vitalik.xyz or a subdomain
      * @dev Can be called by the owner in the registry or an authorised caller in the registry
      * @param name The name to wrap, in DNS format
      * @param wrappedOwner Owner of the name in this contract
@@ -417,10 +417,10 @@ contract NameWrapper is
     }
 
     /**
-     * @notice Unwraps a .tedx domain. e.g. vitalik.tedx
+     * @notice Unwraps a .edx domain. e.g. vitalik.edx
      * @dev Can be called by the owner in the wrapper or an authorised caller in the wrapper
-     * @param labelhash Labelhash of the .tedx domain
-     * @param registrant Sets the owner in the .tedx registrar to this address
+     * @param labelhash Labelhash of the .edx domain
+     * @param registrant Sets the owner in the .edx registrar to this address
      * @param controller Sets the owner in the registry to this address
      */
 
@@ -441,7 +441,7 @@ contract NameWrapper is
     }
 
     /**
-     * @notice Unwraps a non .tedx domain, of any kind. Could be a DNSSEC name vitalik.xyz or a subdomain
+     * @notice Unwraps a non .edx domain, of any kind. Could be a DNSSEC name vitalik.xyz or a subdomain
      * @dev Can be called by the owner in the wrapper or an authorised caller in the wrapper
      * @param parentNode Parent namehash of the name e.g. vitalik.xyz would be namehash('xyz')
      * @param labelhash Labelhash of the name, e.g. vitalik.xyz would be keccak256('vitalik')
@@ -531,7 +531,7 @@ contract NameWrapper is
     }
 
     /**
-     * @notice Upgrades a domain of any kind. Could be a .tedx name vitalik.tedx, a DNSSEC name vitalik.xyz, or a subdomain
+     * @notice Upgrades a domain of any kind. Could be a .edx name vitalik.edx, a DNSSEC name vitalik.xyz, or a subdomain
      * @dev Can be called by the owner or an authorised caller
      * @param name The name to upgrade, in DNS format
      * @param extraData Extra data to pass to the upgrade contract
@@ -907,7 +907,7 @@ contract NameWrapper is
         uint32 fuses,
         uint64 expiry
     ) internal override {
-        // For this check, treat .tedx 2LDs as expiring at the start of the grace period.
+        // For this check, treat .edx 2LDs as expiring at the start of the grace period.
         if (fuses & IS_DOT_ETH == IS_DOT_ETH) {
             expiry -= GRACE_PERIOD;
         }
@@ -1071,7 +1071,7 @@ contract NameWrapper is
         uint64 maxExpiry
     ) private pure returns (uint64) {
         // Expiry cannot be more than maximum allowed
-        // .tedx names will check registrar, non .tedx check parent
+        // .edx names will check registrar, non .edx check parent
         if (expiry > maxExpiry) {
             expiry = maxExpiry;
         }
@@ -1093,7 +1093,7 @@ contract NameWrapper is
         bytes32 labelhash = keccak256(bytes(label));
         bytes32 node = _makeNode(ETH_NODE, labelhash);
         // hardcode dns-encoded eth string for gas savings
-        bytes memory name = _addLabel(label, "\x04tedx\x00");
+        bytes memory name = _addLabel(label, "\x03edx\x00");
         names[node] = name;
 
         _wrap(
